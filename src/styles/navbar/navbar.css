@@ -1,0 +1,6 @@
+.navbar li{
+    list-style-type: none;
+}
+.navbar li a{
+    text-decoration: none;
+}

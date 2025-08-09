@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, } from "react-router-dom"
 import '../../styles/navbar/navbar.css'
 
 const Navbar = () => {
@@ -10,6 +10,7 @@ const Navbar = () => {
                 <li className="nav-item"><Link>HOME</Link></li>
                 <li className="nav-item"><Link to='/login' >LOGIN</Link></li>
             </ul>
+
         </div>
     )
 }

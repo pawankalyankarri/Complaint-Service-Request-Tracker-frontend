@@ -1,19 +1,35 @@
+import usericon from '../../assets/usericon.jpg'
+import technicianicon from '../../assets/technicianimg.jpg'
+import '../../styles/navbar/login.css'
+import { Link, Route,Routes } from 'react-router-dom'
+import TechLogin from './TechLogin'
 const Login = () =>{
     return (
-        <div className="d-flex justify-content-center">
-            <form action="" className="card p-5 w-25 shadow">
-                <div>
-                    <label htmlFor="" className="form-label">User Name</label>
-                    <input type="text" className="form-control" />
+        
+        <div className='loginpage container'>
+            <div className="login">
+                <h4>User</h4>
+                <div className="card shadow">
+                    <div className="card-img-top">
+                        <Link to='/userlogin'> <img src={usericon} alt="" /></Link>
+                    </div>
+                    
                 </div>
-                <div>
-                    <label htmlFor="" className="form-label">Password</label>
-                    <input type="text" className="form-control" />
+
+            </div>
+            <div className="login">
+                <h4>Technician</h4>
+                <div className="card shadow">
+                    <div className="card-img-top">
+                        <Link to='/techlogin' > <img src={technicianicon} alt="" /></Link>
+                    </div>
+                    
                 </div>
-                <div className="d-flex justify-content-center p-2">
-                    <input type="submit" className="btn btn-success" />
-                </div>
-            </form>
+
+            </div>
+            {/* <Routes>
+                <Route path='/techlogin' element={<TechLogin/>}/>
+            </Routes> */}
         </div>
     )
 }

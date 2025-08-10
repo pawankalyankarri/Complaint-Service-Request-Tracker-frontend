@@ -9,14 +9,16 @@ import UserLogin from './components/navbar/UserLogin'
 import TechLogin from './components/navbar/TechLogin'
 import TechReg from './components/navbar/TechReg'
 import UserReg from './components/navbar/UserReg'
+import RaiseRequest from './components/services/RaiseRequest'
+import MainApput from './components/MainApput'
 function App() {
 
   return (
       <div className='container'>
 
-        <Navbar/>
-
-        <Routes>
+        {/* <Navbar/> */}
+        <MainApput/>
+        {/* <Routes>
           <Route path='' element={<Home/>} />
           <Route path='/services' element={<Services/>}/>
           <Route path='/login' element={<Login/>}/>
@@ -24,7 +26,8 @@ function App() {
           <Route path='/techlogin' element={<TechLogin/>}/>
           <Route path='/techreg' element={<TechReg/>}/>
           <Route path='/userreg' element={<UserReg/>}/>
-        </Routes>
+          <Route path='/raisereq' element={<RaiseRequest/>} />
+        </Routes> */}
 
 
 

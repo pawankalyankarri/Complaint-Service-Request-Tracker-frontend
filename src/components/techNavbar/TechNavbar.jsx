@@ -6,10 +6,10 @@ const TechNavbar = () =>{
     return (
         <div>
             <ul className="navbar">
-                <li><Link to='/thome'>HOME</Link></li>
-                <li><Link to='/treq'>REQUESTS</Link></li>
+                <li><Link to='/technav/thome'>HOME</Link></li>
+                <li><Link to='/technav/treq'>REQUESTS</Link></li>
                 <li><Link >HOME</Link></li>
-                <li><Link to='/tprofile' >PROFILE</Link></li>
+                <li><Link to='/technav/tprofile' >PROFILE</Link></li>
             </ul>
         </div>
     )

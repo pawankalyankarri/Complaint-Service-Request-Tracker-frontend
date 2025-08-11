@@ -12,12 +12,13 @@ import TechNavbar from "./techNavbar/TechNavbar";
 import TechHome from "./techNavbar/TechHome";
 import TechRequests from "./techNavbar/TechRequests";
 import TechProfile from "./techNavbar/TechProfile";
+import TechNavbarEmpty from "./techNavbar/TechNavbarEmpty";
 
 
 const MainApput = () =>{
     let location = useLocation()
 
-    let path = location.pathname === '/technav'
+    let path = location.pathname.startsWith('/technav')
 
     return(
         <div className='container'>
@@ -36,10 +37,11 @@ const MainApput = () =>{
           <Route path='/raisereq' element={<RaiseRequest/>} />
 
 
-          <Route path="/technav" element=''/>
-          <Route path="/thome" element={<TechHome/>}/>
-          <Route path="/treq" element={<TechRequests/>}/>
-          <Route path="/tprofile" element={<TechProfile/>}/>
+          <Route path="/technav" element={<TechNavbarEmpty/>}>
+          <Route path="thome" element={<TechHome/>}/>
+          <Route path="treq" element={<TechRequests/>}/>
+          <Route path="tprofile" element={<TechProfile/>}/>
+          </Route>
         </Routes>
 
 

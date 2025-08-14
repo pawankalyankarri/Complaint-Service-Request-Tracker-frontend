@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const TechReg = () => {
@@ -14,10 +14,25 @@ const TechReg = () => {
   let unameRef = useRef();
   let pswRef = useRef();
 
+  let [depts,setDepts] = useState()
+
   let navigate = useNavigate()
+
+  useEffect(()=>{
+    axios.get("http://127.0.0.1:8000/login/getdepts/").then((res)=>{
+      console.log(res)
+      setDepts(res)
+    }).catch(err=>{
+      console.log(err)
+  })
+  },[])
 
   function handleData(e) {
     e.preventDefault();
+    deptFlag = depts.some(obj=>obj.d_name === deptRef.current.value)
+    console.log(deptRef)
+
+
     let data = {
       tech_name: fnameRef.current.value,
       tech_email: emailRef.current.value,
@@ -30,16 +45,16 @@ const TechReg = () => {
       tech_uname: unameRef.current.value,
       tech_psw: pswRef.current.value,
     };
-    axios.post("http://127.0.0.1:8000/login/techlogin/", data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }).then((res)=>{
-        console.log(res)
-        navigate('/techlogin')
-    }).catch((err)=>{
-        console.log(err)
-    });
+    // axios.post("http://127.0.0.1:8000/login/techlogin/", data, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // }).then((res)=>{
+    //     console.log(res)
+    //     navigate('/techlogin')
+    // }).catch((err)=>{
+    //     console.log(err)
+    // });
   }
 
   return (

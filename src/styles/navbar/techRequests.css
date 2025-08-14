@@ -1,0 +1,18 @@
+.techRequests .reqs{
+    display: flex;
+    width: 100%;
+    gap:2%;
+
+}
+.techRequests .reqs .card{
+    width: 23%;
+    height: 50%;
+}
+.techRequests .reqs .card .card-img-top{
+    width: 100%;
+    height: 100%;
+}
+.techRequests .reqs .card .card-img-top img{
+    width: 100%;
+    height: 100%;
+}

@@ -68,7 +68,7 @@ const RaiseRequest = () =>{
                 <select name="" id="dept" className="form-select text-capitalize" required ref={deptRef} >
                     {/* <option value="">Choose issue related Department</option> */}
                     {depts.map(obj=>
-                        <option key={obj.tech_id} value={obj.tech_dept} className="text-capitalize">{obj.tech_dept}</option>
+                        <option key={obj.tech_id.d_id} value={obj.tech_dept.d_id} className="text-capitalize">{obj.tech_dept.d_name}</option>
                     )}
                 </select>
             </div>

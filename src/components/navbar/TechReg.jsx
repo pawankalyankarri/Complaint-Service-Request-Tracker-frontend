@@ -14,30 +14,51 @@ const TechReg = () => {
   let unameRef = useRef();
   let pswRef = useRef();
 
-  let [depts,setDepts] = useState()
+  let [depts, setDepts] = useState();
 
-  let navigate = useNavigate()
+  let navigate = useNavigate();
 
-  useEffect(()=>{
-    axios.get("http://127.0.0.1:8000/login/getdepts/").then((res)=>{
-      console.log(res)
-      setDepts(res)
-    }).catch(err=>{
-      console.log(err)
-  })
-  },[])
+  useEffect(() => {
+      axios
+        .get("http://127.0.0.1:8000/login/getdepts/")
+        .then((res) => {
+          console.log(res);
+          setDepts(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, []);
 
-  function handleData(e) {
+  async function handleData(e) {
     e.preventDefault();
-    deptFlag = depts.some(obj=>obj.d_name === deptRef.current.value)
-    console.log(deptRef)
+    let deptFlag = depts.find((obj) => obj.d_name === deptRef.current.value);
 
+    if (!deptFlag) {
+      try{
+        await axios
+            .post("http://127.0.0.1:8000/login/getdepts/", {
+              d_name: deptRef.current.value,
+            })
+        const res = await axios.get('http://127.0.0.1:8000/login/getdepts/')
+        setDepts(res.data)
+        
+        deptFlag = res.data.find((obj) => obj.d_name === deptRef.current.value)
 
+      }
+      catch(err){
+        console.log(err)
+      }
+        
+      }
+
+ 
+    
     let data = {
       tech_name: fnameRef.current.value,
       tech_email: emailRef.current.value,
       tech_mnum: mnumRef.current.value,
-      tech_dept: deptRef.current.value,
+      tech_dept: deptFlag.d_id,
       tech_exp: expRef.current.value,
       tech_add: addRef.current.value,
       tech_pic: picRef.current.files[0],
@@ -45,17 +66,18 @@ const TechReg = () => {
       tech_uname: unameRef.current.value,
       tech_psw: pswRef.current.value,
     };
-    // axios.post("http://127.0.0.1:8000/login/techlogin/", data, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // }).then((res)=>{
-    //     console.log(res)
-    //     navigate('/techlogin')
-    // }).catch((err)=>{
-    //     console.log(err)
-    // });
+    axios.post("http://127.0.0.1:8000/login/techlogin/", data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }).then((res)=>{
+        console.log(res)
+        navigate('/techlogin')
+    }).catch((err)=>{
+        console.log(err)
+    });
   }
+
 
   return (
     <div className="container">
@@ -64,33 +86,46 @@ const TechReg = () => {
           <label htmlFor="" className="form-label">
             Full Name
           </label>
-          <input type="text" className="form-control" ref={fnameRef} required/>
+          <input type="text" className="form-control" ref={fnameRef} required />
         </div>
         <div className="col-6">
           <label htmlFor="" className="form-label">
             Email id
           </label>
-          <input type="email" className="form-control" ref={emailRef} required />
+          <input
+            type="email"
+            className="form-control"
+            ref={emailRef}
+            required
+          />
         </div>
 
         <div className="col-6">
           <label htmlFor="" className="form-label">
             Mobile Number
           </label>
-          <input type="tel" className="form-control" ref={mnumRef}  required />
+          <input type="tel" className="form-control" ref={mnumRef} required />
         </div>
         <div className="col-6">
           <label htmlFor="" className="form-label">
             Department
           </label>
-          <input type="text" className="form-control" ref={deptRef}  required />
+          <input type="text" className="form-control" ref={deptRef} required />
         </div>
         <div className="col-6">
           <label htmlFor="" className="form-label">
             Experience in Field
           </label>
-          <select name="" id="exp" className="form-select" ref={expRef} required>
-            <option value="Fresher">Fresher</option>
+          <select
+            name=""
+            id="exp"
+            className="form-select"
+            ref={expRef}
+            required
+          >
+            <option value="Fresher">
+              Fresher
+            </option>
             <option value="0-1">0-1</option>
             <option value="1-5">1-5</option>
             <option value="5-10">5-10</option>
@@ -101,16 +136,27 @@ const TechReg = () => {
           <label htmlFor="" className="form-label">
             Address
           </label>
-          <textarea name="" id="add" className="form-control" ref={addRef}  required></textarea>
+          <textarea
+            name=""
+            id="add"
+            className="form-control"
+            ref={addRef}
+            required
+          ></textarea>
         </div>
         <div className="col-6">
           <label htmlFor="" className="form-label">
             Profile Photo
           </label>
-          <input type="file" className="form-control" ref={picRef}  required/>
+          <input type="file" className="form-control" ref={picRef} required />
         </div>
         <div className="col-6 pt-5">
-          <input type="checkbox" className="form-check-input" ref={ureqRef}  required />
+          <input
+            type="checkbox"
+            className="form-check-input"
+            ref={ureqRef}
+            required
+          />
           &nbsp;&nbsp;
           <label htmlFor="" className="form-label">
             Availbale for urgent requirements
@@ -120,13 +166,18 @@ const TechReg = () => {
           <label htmlFor="" className="form-label">
             Create UserName
           </label>
-          <input type="text" className="form-control" ref={unameRef}  required/>
+          <input type="text" className="form-control" ref={unameRef} required />
         </div>
         <div className="col-6">
           <label htmlFor="" className="form-label">
             Password
           </label>
-          <input type="password" className="form-control" ref={pswRef} required/>
+          <input
+            type="password"
+            className="form-control"
+            ref={pswRef}
+            required
+          />
         </div>
         <div className="col-6 m-2">
           <input

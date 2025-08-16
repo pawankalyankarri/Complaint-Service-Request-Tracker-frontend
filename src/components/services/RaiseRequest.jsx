@@ -23,9 +23,9 @@ const RaiseRequest = () =>{
         })
     },[])
     
-
+    console.log('userinfo',usersInfo)
     useEffect(()=>{
-        axios.get("http://127.0.0.1:8000/login/techlogin/").then((res)=>{
+        axios.get("http://127.0.0.1:8000/login/getdepts/").then((res)=>{
         // console.log(res)
         setDepts(res.data)
     }).catch((err)=>{
@@ -59,6 +59,7 @@ const RaiseRequest = () =>{
             console.log(err)
         })
     }
+    console.log('depts',depts)
 
     return (
         <div className="container"><h3 className="text-center m-3">Here Provide information and Raise you request</h3>
@@ -68,7 +69,7 @@ const RaiseRequest = () =>{
                 <select name="" id="dept" className="form-select text-capitalize" required ref={deptRef} >
                     {/* <option value="">Choose issue related Department</option> */}
                     {depts.map(obj=>
-                        <option key={obj.tech_id.d_id} value={obj.tech_dept.d_id} className="text-capitalize">{obj.tech_dept.d_name}</option>
+                        <option key={obj.d_id} value={obj.d_id} className="text-capitalize">{obj.d_name}</option>
                     )}
                 </select>
             </div>

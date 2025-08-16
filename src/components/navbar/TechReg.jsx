@@ -52,7 +52,7 @@ const TechReg = () => {
         
       }
 
- 
+      
     
     let data = {
       tech_name: fnameRef.current.value,

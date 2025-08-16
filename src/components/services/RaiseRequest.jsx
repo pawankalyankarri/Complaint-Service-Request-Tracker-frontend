@@ -33,14 +33,16 @@ const RaiseRequest = () =>{
     })
     // console.log('depts',depts)
     },[])
-
+    console.log('depts',depts)
     function handleData(e){
         e.preventDefault()
         let user_info = usersInfo.find(obj=>obj.user_uname === unameRef.current.value)
-        let dept_info = depts.find(obj=>obj.tech_dept === deptRef.current.value)
+        console.log(deptRef.current.value)
+        let dept_info = depts.find(obj=>obj.d_id === Number(deptRef.current.value))
+        console.log('dept_info',dept_info)
         let data = {
             req_user:user_info.user_id,
-            req_dept:dept_info.tech_id,
+            req_dept:dept_info.d_id,
             req_brief : briefRef.current.value,
             req_wmnum :wmnumRef.current.value,
             req_loc : locRef.current.value,

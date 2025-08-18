@@ -13,6 +13,7 @@ const UserLogin = () =>{
         let user_psw = pswRef.current.value
         axios.get("http://127.0.0.1:8000/login/userlogin/").then((res)=>{            
             let flag = res.data.some((obj)=>obj.user_uname === user_uname && obj.user_psw === user_psw)
+            // console.log(res.data)
             if (flag){
                 // console.log('both are matched')
                 navigate('/')

@@ -23,7 +23,7 @@ const RaiseRequest = () =>{
         })
     },[])
     
-    console.log('userinfo',usersInfo)
+    // console.log('userinfo',usersInfo)
     useEffect(()=>{
         axios.get("http://127.0.0.1:8000/login/getdepts/").then((res)=>{
         // console.log(res)
@@ -33,33 +33,30 @@ const RaiseRequest = () =>{
     })
     // console.log('depts',depts)
     },[])
-
     function handleData(e){
         e.preventDefault()
+        console.log('action happend')
         let user_info = usersInfo.find(obj=>obj.user_uname === unameRef.current.value)
-        let dept_info = depts.find(obj=>obj.tech_dept === deptRef.current.value)
+        let dept_info = depts.find(obj=>obj.d_id === Number(deptRef.current.value))
         let data = {
             req_user:user_info.user_id,
-            req_dept:dept_info.tech_id,
+            req_dept:dept_info.d_id,
             req_brief : briefRef.current.value,
             req_wmnum :wmnumRef.current.value,
             req_loc : locRef.current.value,
             req_time : ptimeRef.current.value,
             req_img : imgRef.current.files[0]
         }
-        // console.log(user_info)
-        // console.log(dept_info)
         axios.post("http://127.0.0.1:8000/login/requests/",data,{
             headers:{
                 'Content-Type':'multipart/form-data'
             },
         }).then(res=>{
-            console.log(res)
+            // console.log(res)
         }).catch(err=>{
             console.log(err)
         })
     }
-    console.log('depts',depts)
 
     return (
         <div className="container"><h3 className="text-center m-3">Here Provide information and Raise you request</h3>

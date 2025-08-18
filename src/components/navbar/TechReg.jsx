@@ -22,7 +22,7 @@ const TechReg = () => {
       axios
         .get("http://127.0.0.1:8000/login/getdepts/")
         .then((res) => {
-          console.log(res);
+          // console.log(res);
           setDepts(res.data);
         })
         .catch((err) => {

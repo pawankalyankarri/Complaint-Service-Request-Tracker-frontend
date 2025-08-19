@@ -35,7 +35,7 @@ const RaiseRequest = () =>{
     },[])
     function handleData(e){
         e.preventDefault()
-        console.log('action happend')
+        // console.log(imgRef.current.files[0])
         let user_info = usersInfo.find(obj=>obj.user_uname === unameRef.current.value)
         let dept_info = depts.find(obj=>obj.d_id === Number(deptRef.current.value))
         let data = {
@@ -52,7 +52,7 @@ const RaiseRequest = () =>{
                 'Content-Type':'multipart/form-data'
             },
         }).then(res=>{
-            // console.log(res)
+            console.log(res)
         }).catch(err=>{
             console.log(err)
         })

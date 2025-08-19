@@ -13,6 +13,7 @@ import TechHome from "./techNavbar/TechHome";
 import TechRequests from "./techNavbar/TechRequests";
 import TechProfile from "./techNavbar/TechProfile";
 import TechNavbarEmpty from "./techNavbar/TechNavbarEmpty";
+import TechReqAcc from "./techNavbar/TechReqAcc";
 
 
 const MainApput = () =>{
@@ -41,6 +42,7 @@ const MainApput = () =>{
           <Route path="thome" element={<TechHome/>}/>
           <Route path="treq" element={<TechRequests/>}/>
           <Route path="tprofile" element={<TechProfile/>}/>
+          <Route path="techreqacc" element={<TechReqAcc/>}/>
           </Route>
         </Routes>
 

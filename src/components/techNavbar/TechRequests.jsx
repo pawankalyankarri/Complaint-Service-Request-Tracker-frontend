@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import problem from '../../assets/problem.jpg'
 import '../../styles/navbar/techRequests.css'
+import { Link } from "react-router-dom";
 
 const TechRequests = () => {
     let [reqs,setReqs] = useState([])
@@ -14,7 +16,7 @@ const TechRequests = () => {
         })
     },[])
     useEffect(()=>{
-        axios.get('http://127.0.0.1:8000/login/techlogin/').then((res)=>{
+        axios.get('http://127.0.0.1:8000/login/getdepts/').then((res)=>{
             // console.log(res.data)
             setDepts(res.data)
         }).catch(err=>{
@@ -27,14 +29,16 @@ const TechRequests = () => {
             <div className="reqs">
                 {reqs.map(req=>{
                     return(
-                        <div className="card" key={req.req_id}>
+                        <div className="card shadow" key={req.req_id}>
                             <div className="card-img-top">
-                                <img src={`http://127.0.0.1:8000/${req.req_img}`} alt="" />
+                                {req.req_img?<img src={`http://127.0.0.1:8000/${req.req_img}`} alt="" />:<img src={problem} alt="" />}
                             </div>
                             <div className="card-body">
-                                {depts.find(obj=>obj.tech_dept === req.req_dept?<h3>{obj.tech_name}</h3>:''
+                                {depts.map(obj=>obj.d_id === req.req_dept ? <h3 key={req.req_id} className="text-capitalize">{obj.d_name}</h3>:''
                                 )}
-                                <p>{req.req_brief}</p>
+                                <p><strong>Brief: </strong>{req.req_brief}</p>
+                                <p><strong>Location: </strong>{req.req_loc}</p>
+                               <Link to='/technav/techreqacc' state={req}  className="btn btn-primary text-capitalize">accept request</Link>
 
                             </div>
                         </div>

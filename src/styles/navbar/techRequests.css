@@ -6,13 +6,14 @@
 }
 .techRequests .reqs .card{
     width: 23%;
-    height: 50%;
 }
 .techRequests .reqs .card .card-img-top{
     width: 100%;
-    height: 100%;
+    height: 60%;
 }
 .techRequests .reqs .card .card-img-top img{
     width: 100%;
     height: 100%;
+    object-fit: contain;
+    
 }

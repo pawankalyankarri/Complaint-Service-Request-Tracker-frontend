@@ -38,7 +38,7 @@ const TechRequests = () => {
                                 )}
                                 <p><strong>Brief: </strong>{req.req_brief}</p>
                                 <p><strong>Location: </strong>{req.req_loc}</p>
-                               <Link to='/technav/techreqacc' state={req}  className="btn btn-primary text-capitalize">accept request</Link>
+                               <Link to='/technav/techreqacc' state={req}  className="btn btn-primary text-capitalize">view & accept request</Link>
 
                             </div>
                         </div>

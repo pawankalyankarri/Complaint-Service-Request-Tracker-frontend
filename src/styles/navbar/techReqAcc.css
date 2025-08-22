@@ -1,0 +1,26 @@
+.req-acc{
+    width: 100%;
+    display: flex;
+    gap:5%;
+}
+.req-acc .img{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.req-acc .img img{
+    width: 100%;
+    height: 19rem;
+    object-fit: contain;
+}
+.req-acc .content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    
+
+}

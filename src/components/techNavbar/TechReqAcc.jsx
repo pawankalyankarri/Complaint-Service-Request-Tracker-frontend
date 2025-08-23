@@ -21,6 +21,19 @@ const TechReqAcc = () => {
   }, []);
   console.log('req',req);
 
+  function accrequest(){
+    axios.get("http://127.0.0.1:8000/login/accreq/").then(res=>{
+      console.log(res.data)
+      let req_obj = res.data.find(obj=>obj.areq_unumber === req.req_id)
+      console.log(req_obj)
+      axios.put(`http://127.0.0.1:8000/login/modifyaccreq/${req_obj.areq_id}`,{areq_status:"accepted"}).then(res=>{
+        console.log(res)
+      }).catch(err=>console.log(err))
+    }).catch(err=>console.log(err))
+    
+    
+  }
+
   return (
     <div>
       <div className="container req-acc">
@@ -38,7 +51,7 @@ const TechReqAcc = () => {
           <p><strong>User Availble time: </strong>{req?.req_time ? req.req_time : 'not specified' }</p>
           <p className="text-capitalize"><strong>Location: </strong>{req?.req_loc},{req?.req_state}</p>
           <br />
-          <Link className="btn btn-success">Fix This Problem</Link>
+          <button onClick={accrequest} className="btn btn-success">Fix This Problem</button>
         </div>
       </div>
     </div>

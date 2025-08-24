@@ -26,7 +26,7 @@ const TechReqAcc = () => {
       console.log(res.data)
       let req_obj = res.data.find(obj=>obj.areq_unumber === req.req_id)
       console.log(req_obj)
-      axios.put(`http://127.0.0.1:8000/login/modifyaccreq/${req_obj.areq_id}`,{areq_status:"accepted"}).then(res=>{
+      axios.patch(`http://127.0.0.1:8000/login/modifyaccreq/${req_obj.areq_id}/`,{areq_status:"accepted"}).then(res=>{
         console.log(res)
       }).catch(err=>console.log(err))
     }).catch(err=>console.log(err))

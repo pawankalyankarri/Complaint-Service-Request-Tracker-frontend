@@ -65,7 +65,7 @@ const RaiseRequest = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
+        console.log('res.data',res.data);
 
         axios
           .post("http://127.0.0.1:8000/login/accreq/", {

@@ -14,6 +14,7 @@ import TechRequests from "./techNavbar/TechRequests";
 import TechProfile from "./techNavbar/TechProfile";
 import TechNavbarEmpty from "./techNavbar/TechNavbarEmpty";
 import TechReqAcc from "./techNavbar/TechReqAcc";
+import URRequests from "./navbar/URRequests";
 
 
 const MainApput = () =>{
@@ -33,6 +34,7 @@ const MainApput = () =>{
           <Route path='/login' element={<Login/>}/>
           <Route path='/userlogin' element={<UserLogin/>}/>
           <Route path='/techlogin' element={<TechLogin/>}/>
+          <Route path="/urreq" element={<URRequests/>}/>
           <Route path='/techreg' element={<TechReg/>}/>
           <Route path='/userreg' element={<UserReg/>}/>
           <Route path='/raisereq' element={<RaiseRequest/>} />

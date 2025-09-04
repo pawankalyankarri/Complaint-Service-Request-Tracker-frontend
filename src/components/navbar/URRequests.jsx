@@ -16,8 +16,10 @@ const URRequests = ()=>{
             console.log(res.data)
         }).catch(err=>console.log(err))
     },[])
+    
+    
     return(
-        <div>URRequests
+        <div>URRequests here
 
             {/* {reqs.map(obj=>{
                 areqs.map(areq=>{
@@ -26,6 +28,11 @@ const URRequests = ()=>{
                     }
                 })
             })} */}
+            {reqs
+      .filter(obj => areqs.some(areq => obj.req_id === areq.areq_unumber))
+      .map(obj => (
+        <h1 key={obj.req_id}>{obj.req_brief}</h1>
+      ))}
         </div>
     )
 }

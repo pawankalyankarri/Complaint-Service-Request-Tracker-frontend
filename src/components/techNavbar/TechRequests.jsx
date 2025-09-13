@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 const TechRequests = () => {
     let [reqs,setReqs] = useState([])
     let [depts,setDepts] = useState([])
+    let [areq,setAreqs] = useState([])
     useEffect(()=>{
         axios.get('http://127.0.0.1:8000/login/requests/').then(res=>{
             console.log(res.data)
@@ -22,6 +23,12 @@ const TechRequests = () => {
         }).catch(err=>{
             console.log(err)
         })
+    },[])
+    useEffect(()=>{
+        axios.get('http://127.0.0.1:8000/login/accreq').then(res=>{
+            setAreqs(res.data)
+            console.log(res.data)
+        }).catch(err=>console.log(err))
     },[])
     return (
         <div className="techRequests container">

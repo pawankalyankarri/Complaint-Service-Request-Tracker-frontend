@@ -14,12 +14,13 @@ const UserReg = () => {
   
   function handleData(e){
     e.preventDefault()
+    console.log('here',upicRef.current.files.length)
     let data = {
       user_name : ufnameRef.current.value,
       user_mnum : unumRef.current.value,
       user_uname : uunameRef.current.value,
       user_psw : upswRef.current.value,
-      user_pic : upicRef.current.files?upicRef.current.files[0]:usericon,
+      user_pic : upicRef.current.files.length > 0 ? upicRef.current.files[0] : usericon,
       user_state : ustateRef.current.value
     }
     console.log('here it is runing')
@@ -34,6 +35,8 @@ const UserReg = () => {
         console.log(err)
       })
   }
+
+
   return (
     <div>
       <form action="" className="row" onSubmit={handleData}>

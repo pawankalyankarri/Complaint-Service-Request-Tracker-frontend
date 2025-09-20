@@ -24,10 +24,10 @@ const UserLogin = () => {
           let u_details = res.data.find(
             (obj) => obj.user_uname === user_uname && obj.user_psw === user_psw
           );
-          console.log('u_de',u_details)
+          // console.log('u_de',u_details)
 
           sessionStorage.setItem("userDetails", JSON.stringify(u_details));
-          console.log(sessionStorage)
+          // console.log(sessionStorage)
 
 
         }

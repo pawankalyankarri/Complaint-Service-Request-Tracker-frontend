@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useMemo } from "react";
+import RequestChild from "./requests/RequestChild";
 
 const URRequests = () => {
   const [reqs, setReqs] = useState([]);
@@ -64,19 +65,23 @@ const URRequests = () => {
   console.log('pending',pendingReqs)
 
   return (
-    <div>
+    <div className="">
       
-      <h2>technician accepted requests</h2>
+      
 
-      {techAccReqs.length === 0 ? (
+     <div>
+      <h2>technician accepted requests</h2>
+       {techAccReqs.length === 0 ? (
         <p>No requests found</p>
       ) : (
         techAccReqs.map((item) => (
           <div key={item.req_id}>
-            <strong>{item.req_brief}</strong>
+            <RequestChild item = {item} />
+            
           </div>
         ))
       )}
+     </div>
 
       <div>
         <h2>URRequests</h2>

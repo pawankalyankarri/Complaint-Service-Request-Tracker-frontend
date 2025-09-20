@@ -1,63 +1,98 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 
 const URRequests = () => {
-  let [reqs, setReqs] = useState([]);
-  let [areqs, setAreqs] = useState([]);
-  let [userDetails, setUserDetails] = useState({});
+  const [reqs, setReqs] = useState([]);
+  const [areqs, setAreqs] = useState([]);
+  const [userDetails, setUserDetails] = useState({});
+  const [data, setData] = useState([]);
+
+  //Fetch requests
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/login/requests")
-      .then((res) => {
-        setReqs(res.data);
-        console.log(res.data);
-      })
+      .then((res) => setReqs(res.data))
       .catch((err) => console.log(err));
   }, []);
+
+  //Fetch accepted requests
   useEffect(() => {
     axios
       .get("http://127.0.0.1:8000/login/accreq")
-      .then((res) => {
-        setAreqs(res.data);
-        console.log(res.data);
-      })
+      .then((res) => setAreqs(res.data))
       .catch((err) => console.log(err));
   }, []);
 
+  //Get user details from sessionStorage
   useEffect(() => {
-    let data = JSON.parse(sessionStorage.getItem("userDetails"));
-    setUserDetails(data);
+    const data = JSON.parse(sessionStorage.getItem("userDetails"));
+    setUserDetails(data || {});
   }, []);
+
+  //Filter requests for current user
   useEffect(() => {
-    console.log(userDetails);
-    let res = reqs.map((obj) => {
-      if (obj.req_user === userDetails.user_id) {
-        return obj;
-      }});
-    console.log("res", res);
-  }, [userDetails]);
+    if (userDetails?.user_id) {
+      let res = reqs.filter((obj) => obj.req_user === userDetails.user_id);
+      setData(res);
+    }
+  }, [reqs, userDetails]);
+
+  //Derived data (no need to store separately)
+  const filteredreqs = useMemo(
+    () => areqs.filter((item) => item.areq_status === "accepted"),
+    [areqs]
+  );
+
+  const techAccReqs = useMemo(
+    () =>
+      data.filter(
+        (obj) => filteredreqs.some((item) => obj.req_id === item.areq_id)
+      ),
+    [data, filteredreqs]
+  );
+   
+  const pendingReqs = useMemo(()=>data.filter(
+    (obj) => !filteredreqs.some((item) => obj.req_id === item.areq_id)
+  ),[data,filteredreqs])
+
+  // Debug logs
+  console.log("userDetails", userDetails);
+  console.log("data", data);
+  console.log("areqs", areqs);
+  console.log("filteredreqs", filteredreqs);
+  console.log("techAccReqs", techAccReqs);
+  console.log('pending',pendingReqs)
 
   return (
     <div>
-      URRequests here
-      {/* {reqs.map(obj=>{
-                areqs.map(areq=>{
-                    if (obj.req_id === areq.areq_unumber){
-                        return (<h1>{obj.req_brief}</h1>)
-                    }
-                })
-            })} */}
-      {/* {reqs
-      .filter(obj => areqs.some(areq => obj.req_user === areq.areq_unumber))
-      .map(obj => (
-        <h1 key={obj.req_id}>{obj.req_brief}</h1>
-      ))} */}
-      {reqs
-        .map((obj) => obj.req_user === userDetails.user_id)
-        .map((obj) => (
-          <div>{obj}</div>
-        ))}
+      
+      <h2>technician accepted requests</h2>
+
+      {techAccReqs.length === 0 ? (
+        <p>No requests found</p>
+      ) : (
+        techAccReqs.map((item) => (
+          <div key={item.req_id}>
+            <strong>{item.req_brief}</strong>
+          </div>
+        ))
+      )}
+
+      <div>
+        <h2>URRequests</h2>
+        {
+          pendingReqs.length === 0 ? <div>NO requests found</div> :
+          (pendingReqs.map(item=>{
+            return(<div key={item.req_id}>
+              <h5>{item.req_brief}</h5>
+            </div>)
+          }))
+        }
+
+      </div>
     </div>
   );
 };
+
 export default URRequests;
+

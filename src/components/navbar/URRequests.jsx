@@ -7,6 +7,8 @@ const URRequests = () => {
   const [areqs, setAreqs] = useState([]);
   const [userDetails, setUserDetails] = useState({});
   const [data, setData] = useState([]);
+  const [techs,setTechs] = useState([])
+  // const [techdetails,setTechdetails] = useState({})
 
   //Fetch requests
   useEffect(() => {
@@ -15,6 +17,13 @@ const URRequests = () => {
       .then((res) => setReqs(res.data))
       .catch((err) => console.log(err));
   }, []);
+
+  // fetching techinicians
+
+  useEffect(()=>{
+    axios.get("http://127.0.0.1:8000/login/techlogin/")
+    .then(res=>setTechs(res.data)).catch(err=>console.log(err))
+  },[])
 
   //Fetch accepted requests
   useEffect(() => {
@@ -51,7 +60,12 @@ const URRequests = () => {
       ),
     [data, filteredreqs]
   );
-   
+  
+  // useEffect(()=>{
+  //   setTechdetails(techs.filter(tech=>techAccReqs.some(item => tech.tech_id === item.req_dept)))
+    
+  // },[techAccReqs,techs])
+
   const pendingReqs = useMemo(()=>data.filter(
     (obj) => !filteredreqs.some((item) => obj.req_id === item.areq_id)
   ),[data,filteredreqs])
@@ -65,21 +79,24 @@ const URRequests = () => {
   console.log('pending',pendingReqs)
 
   return (
-    <div className="">
+    <div className="grid grid-cols-2">
       
       
 
-     <div>
+     <div className="grid">
       <h2>technician accepted requests</h2>
        {techAccReqs.length === 0 ? (
         <p>No requests found</p>
       ) : (
-        techAccReqs.map((item) => (
+        techAccReqs.map((item) => {
+            const techdetails = techs.filter(tech=>techAccReqs.some(item => tech.tech_id === item.req_dept))
+          return (
           <div key={item.req_id}>
-            <RequestChild item = {item} />
+            
+            <RequestChild item = {item} tech_details = {techdetails[0]} />
             
           </div>
-        ))
+        )})
       )}
      </div>
 

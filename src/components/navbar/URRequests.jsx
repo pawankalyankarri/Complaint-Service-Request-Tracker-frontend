@@ -7,7 +7,7 @@ const URRequests = () => {
   const [areqs, setAreqs] = useState([]);
   const [userDetails, setUserDetails] = useState({});
   const [data, setData] = useState([]);
-  const [techs,setTechs] = useState([])
+  const [techs, setTechs] = useState([]);
   // const [techdetails,setTechdetails] = useState({})
 
   //Fetch requests
@@ -20,10 +20,12 @@ const URRequests = () => {
 
   // fetching techinicians
 
-  useEffect(()=>{
-    axios.get("http://127.0.0.1:8000/login/techlogin/")
-    .then(res=>setTechs(res.data)).catch(err=>console.log(err))
-  },[])
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/login/techlogin/")
+      .then((res) => setTechs(res.data))
+      .catch((err) => console.log(err));
+  }, []);
 
   //Fetch accepted requests
   useEffect(() => {
@@ -55,20 +57,24 @@ const URRequests = () => {
 
   const techAccReqs = useMemo(
     () =>
-      data.filter(
-        (obj) => filteredreqs.some((item) => obj.req_id === item.areq_id)
+      data.filter((obj) =>
+        filteredreqs.some((item) => obj.req_id === item.areq_id)
       ),
     [data, filteredreqs]
   );
-  
+
   // useEffect(()=>{
   //   setTechdetails(techs.filter(tech=>techAccReqs.some(item => tech.tech_id === item.req_dept)))
-    
+
   // },[techAccReqs,techs])
 
-  const pendingReqs = useMemo(()=>data.filter(
-    (obj) => !filteredreqs.some((item) => obj.req_id === item.areq_id)
-  ),[data,filteredreqs])
+  const pendingReqs = useMemo(
+    () =>
+      data.filter(
+        (obj) => !filteredreqs.some((item) => obj.req_id === item.areq_id)
+      ),
+    [data, filteredreqs]
+  );
 
   // Debug logs
   console.log("userDetails", userDetails);
@@ -76,45 +82,57 @@ const URRequests = () => {
   console.log("areqs", areqs);
   console.log("filteredreqs", filteredreqs);
   console.log("techAccReqs", techAccReqs);
-  console.log('pending',pendingReqs)
+  console.log("pending", pendingReqs);
 
   return (
     <div className="grid grid-cols-2">
-      
-      
-
-     <div className="grid">
-      <h2>technician accepted requests</h2>
-       {techAccReqs.length === 0 ? (
-        <p>No requests found</p>
-      ) : (
-        techAccReqs.map((item) => {
-            const techdetails = techs.filter(tech=>techAccReqs.some(item => tech.tech_id === item.req_dept))
-          return (
-          <div key={item.req_id}>
-            
-            <RequestChild item = {item} tech_details = {techdetails[0]} />
-            
-          </div>
-        )})
-      )}
-     </div>
+      <div className="grid">
+        <h2>technician accepted requests</h2>
+        {techAccReqs.length === 0 ? (
+          <p>No requests found</p>
+        ) : (
+          techAccReqs.map((item) => {
+            const techdetails = techs.filter((tech) =>
+              techAccReqs.some((item) => tech.tech_id === item.req_dept)
+            );
+            return (
+              <div key={item.req_id} className="grid grid-cols-2 gap-2">
+                <RequestChild item={item} tech_details={techdetails[0]} />
+              </div>
+            );
+          })
+        )}
+      </div>
 
       <div>
         <h2>URRequests</h2>
-        {
-          pendingReqs.length === 0 ? <div>NO requests found</div> :
-          (pendingReqs.map(item=>{
-            return(<div key={item.req_id}>
-              <h5>{item.req_brief}</h5>
-            </div>)
-          }))
-        }
+        {pendingReqs.length === 0 ? (
+          <div>NO requests found</div>
+        ) : (
+          <div className="grid grid-cols-2 gap-2">
+            {pendingReqs.map((item) => {
+              return (
+                <div key={item.req_id} className="card">
+                  {item.req_img ? (
+                    <img
+                      src={`http://127.0.0.1:8000/${item.req_img}`}
+                      className="w-[40%] card-img-top"
+                    />
+                  ) : (
+                    "noimg"
+                  )}
 
+                  <div className="card-body text-xs">
+                    <h5 className="">{item.req_brief}</h5>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 export default URRequests;
-
